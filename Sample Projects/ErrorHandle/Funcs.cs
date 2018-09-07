@@ -35,7 +35,6 @@ namespace DrawLine
 			return tr.GetObject(GetBlkTbl(tr)[BlockTableRecord.ModelSpace], OpenMode.ForRead) as BlockTableRecord;
 		}
 
-		//public - protected - private
 		static public void AddNewEnt(Entity ent)
 		{
 			Database db = GetActiveDb();
@@ -53,14 +52,6 @@ namespace DrawLine
 
 				tr.Commit();
 			}
-		}
-	}
-
-	public class SubClass : AcadFuncs
-	{
-		static void Function()
-		{
-			AddNewEnt(null);
 		}
 	}
 }

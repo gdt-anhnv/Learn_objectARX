@@ -20,6 +20,21 @@ namespace InitTool
 		public void MyCommandFunc()
 		{
 			MessageBox.Show("My Comamnd is called!");
+			int a = 12;
+			a++;
+			MessageBox.Show(a.ToString());
 		}
-    }
+
+		public void MyCommandFunc2()
+		{
+			MessageBox.Show("My second command");
+		}
+
+		[CommandMethod("MyCommand2")]
+		public void MyCommandFunc3()
+		{
+			MessageBox.Show("My 2nd Comamnd is called!");
+		}
+
+	}
 }

@@ -51,4 +51,26 @@ namespace DrawLine
 			AcadFuncs.AddNewEnt(new Line(new AcadGeo.Point3d(1.0, 1.0, 0.0), new AcadGeo.Point3d(1.0, 0.0, 0.0)));
 		}
 	}
+
+	class A
+	{
+		static public int Sum(int a1, int a2)
+		{
+			return a1 + a2;
+		}
+	}
+
+	class B
+	{
+		public string Func()
+		{
+			A a = new A();
+			a.Sum(1, 2);
+
+
+			A.Sum(1, 2);
+
+			return "abc";
+		}
+	}
 }

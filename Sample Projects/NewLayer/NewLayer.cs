@@ -28,10 +28,23 @@ namespace NewLayer
 				LayerTableRecord my_layer = new LayerTableRecord();
 				my_layer.Name = "My_Layer";
 
+				//layer table dang "FOR_READ"
+
 				layer_tbl.UpgradeOpen();
+				//layer table dang la "FOR_WRITE"
 				layer_tbl.Add(my_layer);
 
 				tr.AddNewlyCreatedDBObject(my_layer, true);
+
+				LayerTableRecord my_layer = new LayerTableRecord();
+				my_layer.Name = "My_Layer";
+
+				//layer table dang "FOR_READ"
+
+				layer_tbl.UpgradeOpen();
+				//layer table dang la "FOR_WRITE"
+				layer_tbl.Add(my_layer);
+
 
 				tr.Commit();
 			}
