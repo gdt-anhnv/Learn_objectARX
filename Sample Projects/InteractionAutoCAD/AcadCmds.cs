@@ -110,6 +110,59 @@ namespace MyNamespace
 			}
 		}
 
+		[CommandMethod("EntsInsideWindow")]
+		public void EntsInsideWindow()
+		{
+			AcadApp.DocumentManager.MdiActiveDocument.Window.Focus();
+			using (AcadApp.DocumentManager.MdiActiveDocument.LockDocument())
+			{
+				using (Transaction tr = AcadFuncs.GetActiveDoc().TransactionManager.StartTransaction())
+				{
+					PromptSelectionResult prmpt_ret = AcadFuncs.GetEditor().
+						SelectCrossingWindow(new Point3d(0.0, 0.0, 0.0), new Point3d(10.0, 10.0, 0.0));
+					if (PromptStatus.Cancel == prmpt_ret.Status)
+					{
+						tr.Abort();
+						tr.Dispose();
+						return;
+					}
+
+					ObjectId[] ss = prmpt_ret.Value.GetObjectIds();
+					foreach (ObjectId ent_id in ss)
+					{
+						DBObject obj = tr.GetObject(ent_id, OpenMode.ForRead);
+						if (null == obj)
+							continue;
+						if (obj is Line)
+							MessageBox.Show("Selected a line!");
+					}
+
+					tr.Commit();
+				}
+			}
+		}
+
+		private const string SEL_ENT = "SelEnts";
+		private const string ENTS_INSIDE_WIN = "EntsInsideWindow";
+
+		[CommandMethod("SelectionOptions")]
+		public void SelectionOptions()
+		{
+			PromptKeywordOptions keyword = new PromptKeywordOptions("Chọn loại selection:");
+			keyword.Keywords.Add(SEL_ENT);
+			keyword.Keywords.Add(ENTS_INSIDE_WIN);
+
+			PromptResult prompt_ret = AcadFuncs.GetEditor().GetKeywords(keyword);
+
+			if (PromptStatus.OK == prompt_ret.Status)
+			{
+				if (SEL_ENT == prompt_ret.StringResult)
+					PickEnts();
+				else if (ENTS_INSIDE_WIN == prompt_ret.StringResult)
+					EntsInsideWindow();
+			}
+		}
+
 		[CommandMethod("FilterEnts")]
 		public void FilterEnts()
 		{
