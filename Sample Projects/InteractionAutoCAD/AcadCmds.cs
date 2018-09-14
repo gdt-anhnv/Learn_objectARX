@@ -68,6 +68,7 @@ namespace MyNamespace
 					}
 
 					ObjectId[] ss = prmpt_ret.Value.GetObjectIds();
+
 					foreach(ObjectId ent_id in ss)
 					{
 						DBObject obj = tr.GetObject(ent_id, OpenMode.ForRead);
@@ -75,12 +76,16 @@ namespace MyNamespace
 							continue;
 						if (obj is Line)
 							MessageBox.Show("Selected a line!");
+						else
+							AcadFuncs.GetEditor().SetImpliedSelection(ss);
 					}
 
 					tr.Commit();
 				}
 			}
 		}
+
+		private ObjectId sel_obj_id = ObjectId.Null;
 
 		[CommandMethod("PickSingleEnt")]
 		public void PickSingleEnt()
@@ -99,6 +104,7 @@ namespace MyNamespace
 					}
 
 					ObjectId obj_id = prmpt_ret.ObjectId;
+					sel_obj_id = prmpt_ret.ObjectId;
 					DBObject obj = tr.GetObject(obj_id, OpenMode.ForRead);
 					if (obj is Line)
 						MessageBox.Show("Selected a line!");
@@ -172,7 +178,7 @@ namespace MyNamespace
 				using (Transaction tr = AcadFuncs.GetActiveDoc().TransactionManager.StartTransaction())
 				{
 					TypedValue[] type_var = new TypedValue[2];
-					type_var.SetValue(new TypedValue((int)DxfCode.Start, "circle"), 0);
+					type_var.SetValue(new TypedValue((int)DxfCode.Start, "circle,line"), 0);
 					type_var.SetValue(new TypedValue((int)DxfCode.Color, 1), 1);
 					/*
 					 * https://knowledge.autodesk.com/search-result/caas/CloudHelp/cloudhelp/2017/ENU/AutoCAD-NET/files/GUID-125398A5-184C-4114-9212-A2FF28FC1F1D-htm.html
