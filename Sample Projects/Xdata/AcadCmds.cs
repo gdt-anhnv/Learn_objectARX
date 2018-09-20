@@ -39,7 +39,6 @@ namespace DrawLine
 					reg_app.UpgradeOpen();
 					reg_app.Add(reg_app_rcd);
 					tr.AddNewlyCreatedDBObject(reg_app_rcd, true);
-					reg_app.DowngradeOpen();
 				}
 
 				PromptEntityResult prmpt_ent_ret = AcadFuncs.GetEditor().GetEntity("Chọn 1 entity:");
@@ -51,11 +50,13 @@ namespace DrawLine
 				}
 
 				ent.UpgradeOpen();
-				ent.XData = new ResultBuffer(new TypedValue(1001, XDATA_APP), new TypedValue(1070, 100));
+				ResultBuffer buffer = new ResultBuffer();
+				buffer.Add(new TypedValue((int)DxfCode.ExtendedDataRegAppName, XDATA_APP));
+				buffer.Add(new TypedValue((int)DxfCode.ExtendedDataReal, 100.0));
+				ent.XData = buffer;
 
 				tr.Commit();
 			}
 		}
-
 	}
 }

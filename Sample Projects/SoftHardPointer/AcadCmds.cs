@@ -83,8 +83,8 @@ namespace DrawLine
 		private static ResultBuffer SoftPointerForId(ObjectId id)
 		{
 			var rb = new ResultBuffer();
-			var gc = (int)DxfCode.SoftPointerId;
-			//var gc = (int)DxfCode.HardPointerId;
+			//var gc = (int)DxfCode.SoftPointerId;
+			var gc = (int)DxfCode.HardPointerId;
 			rb.Add(new TypedValue(gc, id));
 			return rb;
 		}
