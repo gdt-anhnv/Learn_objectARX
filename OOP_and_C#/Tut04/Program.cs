@@ -65,6 +65,8 @@ namespace Tut04
 			Tuple<string, int> pairs2 = new Tuple<string, int>("abc", 10);
 			bool cmp = pairs.Equals(pairs2);
 
+			Tuple<int, int> tup1 = new Tuple<int, int>(1, 1);
+
 			List<Tuple<string, int>> items = new List<Tuple<string, int>>();
 			items.Add(new Tuple<string, int>("abc", 12));
 			items.Add(new Tuple<string, int>("abc", 10));

@@ -12,4 +12,19 @@ namespace Tut05
 		{
 		}
 	}
+
+	class TestGeneric
+	{
+		static public T CalculatePlus<T>(T t1, T t2)
+		{
+			dynamic dt1 = t1;
+			dynamic dt2 = t2;
+			return dt1 + dt2;
+		}
+
+		static public bool EqualVal<T>(T t1, T t2) where T : class
+		{
+			return t1 == t2;
+		}
+	}
 }
