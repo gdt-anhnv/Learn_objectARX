@@ -1,0 +1,10 @@
+; ArxExample.def : Declares the module parameters for the DLL.
+
+LIBRARY "ArxExample"
+
+EXPORTS
+    ; Explicit exports can go here
+
+
+acrxEntryPoint PRIVATE
+acrxGetApiVersion PRIVATE
