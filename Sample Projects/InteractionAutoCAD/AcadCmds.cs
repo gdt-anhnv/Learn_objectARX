@@ -51,6 +51,47 @@ namespace MyNamespace
 			//Do something here with picked point
 		}
 
+		private string UnknownInput = "";
+
+		[CommandMethod("GetByUser")]
+		public void GetPointOrString()
+		{
+			PromptSelectionOptions pnt_opts = new PromptSelectionOptions();
+			//pnt_opts.Message = "\nPick point";
+
+			// Define the valid keywords and allow Enter
+			//pnt_opts.AllowArbitraryInput = true;
+			//pnt_opts.AllowNone = true;
+			pnt_opts.UnknownInput += Pnt_opts_UnknownInput;
+			//pnt_opts.KeywordInput += Pnt_opts_KeywordInput;
+
+			// Get the value entered by the user
+			try
+			{
+				PromptSelectionResult pIntRes = AcadFuncs.GetActiveDoc().Editor.GetSelection(pnt_opts);
+			}
+			catch(System.Exception ex)
+			{
+
+			}
+				MessageBox.Show(UnknownInput);
+
+			pnt_opts.UnknownInput -= Pnt_opts_UnknownInput;
+			//pnt_opts.KeywordInput -= Pnt_opts_KeywordInput;
+
+		}
+
+		private void Pnt_opts_KeywordInput(object sender, SelectionTextInputEventArgs e)
+		{
+			UnknownInput = e.Input;
+		}
+
+		private void Pnt_opts_UnknownInput(object sender, SelectionTextInputEventArgs e)
+		{
+			UnknownInput = e.Input;
+			throw new System.Exception();
+		}
+
 		[CommandMethod("PickEnts")]
 		public void PickEnts()
 		{
